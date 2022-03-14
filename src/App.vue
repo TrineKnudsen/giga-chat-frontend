@@ -7,6 +7,7 @@ const userStore = UserStore();
 <template>
   <nav>
     <RouterLink to="/">Home</RouterLink> |
+    <RouterLink to="/myPage">My page</RouterLink> |
     <RouterLink to="/createUser">Create User</RouterLink> |
     <RouterLink to="/chat">Chat</RouterLink>
 

@@ -8,10 +8,15 @@ export const UserStore = defineStore({
   id: "userStore",
   state: () => ({
     loggedInUser: { name: "" } as User,
+    foundUser: { name: "", uuid: "" } as User,
   }),
   getters: {
     userName: (state) => {
       if (state.loggedInUser.name != undefined) return state.loggedInUser.name;
+      else return "";
+    },
+    userFound: (state) => {
+      if (state.foundUser.name != undefined) return state.foundUser.name;
       else return "";
     },
   },
@@ -20,6 +25,12 @@ export const UserStore = defineStore({
       userService
         .createUser(name, email, password)
         .then((user) => (this.loggedInUser = user))
+        .catch((err) => console.log(err));
+    },
+    searchUser(name: string) {
+      userService
+        .searchUser(name)
+        .then((user) => (this.foundUser = user))
         .catch((err) => console.log(err));
     },
   },

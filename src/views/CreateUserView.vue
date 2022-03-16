@@ -3,7 +3,8 @@
   <input v-model="inputName" placeholder="Enter name" /> <br />
   <input v-model="inputEmail" placeholder="Enter email" /> <br />
   <input v-model="inputPassword" placeholder="Enter password" /> <br />
-  <button @click="handleCreateUser">Create</button>
+  <h6 id="errorField"></h6>
+    <button @click="handleCreateUser">Create</button>
 </template>
 
 <script setup lang="ts">
@@ -15,7 +16,10 @@ const inputEmail = ref("");
 const inputPassword = ref("");
 
 function handleCreateUser() {
+  // if(inputName.value != null && inputPassword.value != null && inputEmail.value != null){
   userStore.createUser(inputName.value, inputEmail.value, inputPassword.value);
+  // else {document.getElementById("errorField").innerHTML = "Please fill out all fields";
+  // }
 }
 </script>
 

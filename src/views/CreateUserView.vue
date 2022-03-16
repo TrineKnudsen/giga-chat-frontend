@@ -19,4 +19,11 @@ function handleCreateUser() {
 }
 </script>
 
-<style scoped></style>
+<style type="text/css">
+button {
+  margin: 10px;
+}
+input {
+  margin: 10px;
+}
+</style>

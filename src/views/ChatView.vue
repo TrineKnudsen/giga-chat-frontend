@@ -1,16 +1,26 @@
 <template>
-  <h2>Send chat</h2>
-  <input v-model="txtChatInput" placeholder="Enter chat" /> <br />
   <input v-model="txtRoomInput" placeholder="Enter room" /> <br />
-  <button @click="sendChat">Send</button>
-  <h2>All chats</h2>
   <input placeholder="Enter room name" /> <br />
   <button @click="txtRoomListener">Connect</button>
-  <ul>
-    <li v-for="(chat, index) in chatStore.chats" v-bind:key="index">
-      {{ chat.text }}
-    </li>
-  </ul>
+  <div class="card h-200">
+    <div class="card-header">Room name</div>
+    <div class="card-body" style="min-height: 20rem">
+      <div class="overflow-scroll">
+        <ul class="list-unstyled">
+          <li v-for="(chat, index) in chatStore.chats" v-bind:key="index">
+            {{ chat.text }}
+          </li>
+        </ul>
+      </div>
+      <input
+        class="form-control"
+        style="width: 18rem"
+        v-model="txtChatInput"
+        placeholder="Enter chat"
+      />
+      <button @click="sendChat">Send</button>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

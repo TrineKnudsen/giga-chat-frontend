@@ -60,13 +60,15 @@
 <script setup lang="ts">
 import { ChatStore } from "@/stores/chatStore";
 import { ref } from "vue";
+import { UserStore } from "@/stores/userStore";
 const txtNewRoom = ref("");
 const chatStore = ChatStore();
+const userStore = UserStore();
 const txtSelectedRoom = ref("");
 const txtChatInput = ref("");
 
 function createRoom() {
-  chatStore.createRoom(txtNewRoom.value);
+  chatStore.createRoom(txtNewRoom.value, userStore.loggedInUser.uuid);
 }
 
 function sendChat() {

@@ -29,9 +29,9 @@ export const ChatStore = defineStore({
         this.chats.push(chat);
       });
     },
-    createRoom(room: string) {
+    createRoom(room: string, ownerUuid: string) {
       roomService
-        .createRoom(room)
+        .createRoom(room, ownerUuid)
         .then((room) => this.rooms.push(room))
         .catch((err) => console.log(err));
     },

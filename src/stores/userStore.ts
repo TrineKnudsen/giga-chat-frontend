@@ -7,7 +7,7 @@ const userService: UserService = new UserService();
 export const UserStore = defineStore({
   id: "userStore",
   state: () => ({
-    loggedInUser: { name: "" } as User,
+    loggedInUser: { name: "", uuid: "" } as User,
     foundUser: { name: "", uuid: "" } as User,
   }),
   getters: {

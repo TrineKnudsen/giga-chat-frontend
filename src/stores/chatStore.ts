@@ -1,10 +1,8 @@
 import { defineStore } from "pinia";
 import type { Chat } from "@/models/Chat";
 import { ChatService } from "@/services/chat.service";
-import { RoomService } from "@/services/room.service";
 
 const chatService = new ChatService();
-const roomService = new RoomService();
 
 export const ChatStore = defineStore({
   id: "ChatStore",

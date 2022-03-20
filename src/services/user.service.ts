@@ -22,15 +22,22 @@ export class UserService {
   }
 
   async friendRequest(
-    myUserUuid: string,
-    friendUserUuid: string,
+    senderUserName: string,
+    receiverUserUuid: string,
     isAccepted: boolean
   ): Promise<FriendRequest> {
     const res = await http.post<FriendRequest>("/friend-requests", {
-      myUserUuid: myUserUuid,
-      friendUserUuid: friendUserUuid,
+      senderUserName: senderUserName,
+      receiverUserUuid: receiverUserUuid,
       isAccepted: false,
     });
+    return res.data;
+  }
+
+  async getFriendRequests(receiverUserUuid: string): Promise<FriendRequest[]> {
+    const res = await http.get<FriendRequest[]>(
+      "/friend-requests/" + receiverUserUuid
+    );
     return res.data;
   }
 
@@ -38,6 +45,14 @@ export class UserService {
     const res = await http.post<User>("/users/login", {
       email: email,
       password: password,
+    });
+    return res.data;
+  }
+
+  async acceptFriend(receiverUuid: string, senderUserName: string) {
+    const res = await http.post<FriendRequest>("/users/accFriend", {
+      receiverUserUuid: receiverUuid,
+      senderUserName: senderUserName,
     });
     return res.data;
   }

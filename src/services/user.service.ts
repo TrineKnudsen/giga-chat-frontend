@@ -1,6 +1,5 @@
 import http from "./http.client";
 import type { User } from "@/models/User";
-import type { UserList } from "@/models/UserList";
 import type { FriendRequest } from "@/models/FriendRequest";
 
 export class UserService {

@@ -1,4 +1,4 @@
 export interface Room {
-    id: number;
-    name: string;
+  uuid: number;
+  name: string;
 }

@@ -1,8 +1,10 @@
 import { defineStore } from "pinia";
 import type { User } from "@/models/User";
 import { UserService } from "@/services/user.service";
+import { RoomService } from "@/services/room.service";
 
 const userService: UserService = new UserService();
+const roomService: RoomService = new RoomService();
 
 export const UserStore = defineStore({
   id: "userStore",
@@ -13,6 +15,14 @@ export const UserStore = defineStore({
   getters: {
     userName: (state) => {
       if (state.loggedInUser.name != undefined) return state.loggedInUser.name;
+      else return "";
+    },
+    uuid: (state) => {
+      if (state.loggedInUser.name != undefined) return state.loggedInUser.uuid;
+    },
+    myRooms: (state) => {
+      if (state.loggedInUser.name != undefined)
+        return roomService.getMyRooms(state.loggedInUser.uuid);
       else return "";
     },
     userFound: (state) => {

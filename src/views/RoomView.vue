@@ -10,11 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(room, index) in chatStore.rooms"
-          v-bind:key="index"
-          onclick="connectToRoom()"
-        >
+        <tr v-for="(room, index) in rooms" v-bind:key="index">
           <td>{{ room.uuid }}</td>
           <td>{{ room.name }}</td>
         </tr>
@@ -55,26 +51,40 @@
       <button @click="sendChat">Send</button>
     </div>
   </div>
+  <h3 v-for="(room, index) in userStore.myRooms" v-bind:key="index">
+    User found: {{ room }}
+  </h3>
 </template>
 
 <script setup lang="ts">
 import { ChatStore } from "@/stores/chatStore";
-import { ref } from "vue";
 import { UserStore } from "@/stores/userStore";
+import { RoomService } from "@/services/room.service";
+import type { Room } from "@/models/Room";
+import { ref } from "vue";
+import type { Ref } from "vue";
 const txtNewRoom = ref("");
 const chatStore = ChatStore();
 const userStore = UserStore();
+const roomService = new RoomService();
 const txtSelectedRoom = ref("");
 const txtChatInput = ref("");
+let rooms: Ref<Room[]> = ref([]);
+
+roomService.getMyRooms(userStore.loggedInUser.uuid).then((room) => {
+  rooms.value = room;
+});
 
 function createRoom() {
-  chatStore.createRoom(txtNewRoom.value, userStore.loggedInUser.uuid);
+  roomService
+    .createRoom(txtNewRoom.value, userStore.loggedInUser.uuid)
+    .then((room) => rooms.value.push(room));
 }
 
 function sendChat() {
   chatStore.createChat({
     text: txtChatInput.value,
-    room: txtSelectedRoom.value,
+    room: chatStore.room,
   });
 }
 

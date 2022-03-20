@@ -9,4 +9,9 @@ export class RoomService {
     });
     return res.data;
   }
+
+  async getMyRooms(myUuid: string): Promise<Room[]> {
+    const res = await http.get<Room[]>("/rooms/" + myUuid);
+    return res.data;
+  }
 }

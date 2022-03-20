@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import type { Chat } from "@/models/Chat";
 import { ChatService } from "@/services/chat.service";
 import { RoomService } from "@/services/room.service";
-import type { Room } from "@/models/Room";
 
 const chatService = new ChatService();
 const roomService = new RoomService();
@@ -12,7 +11,6 @@ export const ChatStore = defineStore({
   state: () => ({
     chats: [{}],
     room: "",
-    rooms: [{}],
   }),
   actions: {
     createChat(chat: Chat) {
@@ -28,12 +26,6 @@ export const ChatStore = defineStore({
       chatService.listenToRoom(room, (chat) => {
         this.chats.push(chat);
       });
-    },
-    createRoom(room: string, ownerUuid: string) {
-      roomService
-        .createRoom(room, ownerUuid)
-        .then((room) => this.rooms.push(room))
-        .catch((err) => console.log(err));
     },
   },
 });
